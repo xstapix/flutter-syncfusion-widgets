@@ -8068,6 +8068,14 @@ class _PickerHeaderViewState extends State<_PickerHeaderView> {
         ? _getLeftArrow(arrowWidth, arrowColor, prevArrowColor, arrowSize)
         : Container();
 
+    final Container leftYearArrow = showNavigationArrow
+        ? _getLeftYearArrow(arrowWidth, arrowColor, prevArrowColor, arrowSize)
+        : Container();
+
+    final Container rightYearArrow = showNavigationArrow
+        ? _getRightYearArrow(arrowWidth, arrowColor, prevArrowColor, arrowSize)
+        : Container();
+
     final Container rightArrow = showNavigationArrow
         ? _getRightArrow(arrowWidth, arrowColor, nextArrowColor, arrowSize)
         : Container();
@@ -8094,9 +8102,11 @@ class _PickerHeaderViewState extends State<_PickerHeaderView> {
       return Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            leftYearArrow,
             leftArrow,
             headerText,
             rightArrow,
+            rightYearArrow
           ]);
     }
   }
@@ -8187,13 +8197,89 @@ class _PickerHeaderViewState extends State<_PickerHeaderView> {
         )));
   }
 
+  Container _getLeftYearArrow(double arrowWidth, Color arrowColor,
+      Color prevArrowColor, double arrowSize) {
+    return Container(
+      alignment: Alignment.center,
+      color: widget.headerStyle.backgroundColor ??
+          widget.datePickerTheme.headerBackgroundColor,
+      width: 20,
+      padding: EdgeInsets.zero,
+      child: MaterialButton(
+        //// set splash color as transparent when arrow reaches min date(disabled)
+        splashColor: prevArrowColor != arrowColor ? Colors.transparent : null,
+        hoverColor: prevArrowColor != arrowColor ? Colors.transparent : null,
+        highlightColor:
+            prevArrowColor != arrowColor ? Colors.transparent : null,
+        color: widget.headerStyle.backgroundColor ??
+            widget.datePickerTheme.headerBackgroundColor,
+        onPressed: widget.previousNavigationCallback,
+        padding: EdgeInsets.zero,
+        elevation: 0,
+        focusElevation: 0,
+        highlightElevation: 0,
+        disabledElevation: 0,
+        hoverElevation: 0,
+        child: Semantics(
+          label: 'Backward',
+          child: Icon(
+            widget.navigationDirection ==
+                    DateRangePickerNavigationDirection.horizontal
+                ? Icons.keyboard_double_arrow_left_outlined
+                : Icons.keyboard_arrow_up,
+            color: prevArrowColor,
+            size: arrowSize,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Container _getRightYearArrow(double arrowWidth, Color arrowColor,
+      Color prevArrowColor, double arrowSize) {
+    return Container(
+      alignment: Alignment.center,
+      color: widget.headerStyle.backgroundColor ??
+          widget.datePickerTheme.headerBackgroundColor,
+      width: 20,
+      padding: EdgeInsets.zero,
+      child: MaterialButton(
+        //// set splash color as transparent when arrow reaches min date(disabled)
+        splashColor: prevArrowColor != arrowColor ? Colors.transparent : null,
+        hoverColor: prevArrowColor != arrowColor ? Colors.transparent : null,
+        highlightColor:
+            prevArrowColor != arrowColor ? Colors.transparent : null,
+        color: widget.headerStyle.backgroundColor ??
+            widget.datePickerTheme.headerBackgroundColor,
+        onPressed: widget.previousNavigationCallback,
+        padding: EdgeInsets.zero,
+        elevation: 0,
+        focusElevation: 0,
+        highlightElevation: 0,
+        disabledElevation: 0,
+        hoverElevation: 0,
+        child: Semantics(
+          label: 'Backward',
+          child: Icon(
+            widget.navigationDirection ==
+                    DateRangePickerNavigationDirection.horizontal
+                ? Icons.keyboard_double_arrow_right_outlined
+                : Icons.keyboard_arrow_up,
+            color: prevArrowColor,
+            size: arrowSize,
+          ),
+        ),
+      ),
+    );
+  }
+
   Container _getLeftArrow(double arrowWidth, Color arrowColor,
       Color prevArrowColor, double arrowSize) {
     return Container(
       alignment: Alignment.center,
       color: widget.headerStyle.backgroundColor ??
           widget.datePickerTheme.headerBackgroundColor,
-      width: arrowWidth,
+      width: 20,
       padding: EdgeInsets.zero,
       child: MaterialButton(
         //// set splash color as transparent when arrow reaches min date(disabled)
@@ -8231,7 +8317,7 @@ class _PickerHeaderViewState extends State<_PickerHeaderView> {
       alignment: Alignment.center,
       color: widget.headerStyle.backgroundColor ??
           widget.datePickerTheme.headerBackgroundColor,
-      width: arrowWidth,
+      width: 20,
       padding: EdgeInsets.zero,
       child: MaterialButton(
         //// set splash color as transparent when arrow reaches max date(disabled)
